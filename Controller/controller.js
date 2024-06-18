@@ -1,9 +1,9 @@
 const axios = require('axios');
 const cron = require('node-cron');
 
-const BASE_URL = 'https://cd5ec6.myshopify.com/admin/api/2024-04';// 'https://store.myshopify.com/admin/api/2024-04'
+const BASE_URL = 'https://cd5ec6.myshopify.com/admin/api/2024-04'; // 'https://store.myshopify.com/admin/api/2024-04'
 const headers = {
-    'X-Shopify-Access-Token': process.env.ACCESS_TOKEN,//'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',// shpat_75643758239894902hsdfsdu7fy89w7re9
+    'X-Shopify-Access-Token': process.env.ACCESS_TOKEN, // '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', // shpat_75643758239894902hsdfsdu7fy89w7re9
     'Content-Type': 'application/json'
 };
 
@@ -42,7 +42,7 @@ exports.productData = async (req, res) => {
                         metafield: {
                             namespace: "custom",
                             key: "cost_per_item",
-                            value: cost.toString(),// Specify the type as single_line_text
+                            value: cost.toString(), // Specify the type as single_line_text
                             type: "number_decimal"
                         }
                     };
@@ -50,7 +50,7 @@ exports.productData = async (req, res) => {
                     const profitMetafieldData = {
                         metafield: {
                             namespace: "custom",
-                            key: "profitprofit_of_producttest",
+                            key: "profit_of_product",
                             value: profit.toFixed(2).toString(),
                             type: "number_decimal"
                         }
@@ -83,25 +83,25 @@ exports.productData = async (req, res) => {
 
                         await axios.put(`${BASE_URL}/products/${productId}/metafields/${profitMetafield.id}.json`, profitMetafieldData, { headers })
                             .then(response => {
-                                console.log(`profit metafield updated for product ID: ${productId} with profit: ${profit.toFixed(2)}`, profitMetafieldData);
+                                console.log(`Profit metafield updated for product ID: ${productId} with profit: ${profit.toFixed(2)}`, profitMetafieldData);
                             })
                             .catch(error => {
-                                console.log(`Error updating profit metafield for product ID: ${productId}`, error.response ? error.response.data : error.message);
+                                console.error(`Error updating profit metafield for product ID: ${productId}`, error.response ? error.response.data : error.message);
                             });
                     } else {
                         await axios.post(`${BASE_URL}/products/${productId}/metafields.json`, profitMetafieldData, { headers })
                             .then(response => {
-                                console.log(`profit metafield created for product ID: ${productId} with profit: ${profit.toFixed(2)}`, profitMetafieldData);
+                                console.log(`Profit metafield created for product ID: ${productId} with profit: ${profit.toFixed(2)}`, profitMetafieldData);
                             })
                             .catch(error => {
-                                res.send(`Error creating profit metafield for product ID: ${productId}`, error.response ? error.response.data : error.message);
+                                console.error(`Error creating profit metafield for product ID: ${productId}`, error.response ? error.response.data : error.message);
                             });
                     }
                 }
             }
         }
 
-        res.send('All product metafields updated successfully.');
+        res.status(200).send('All product metafields updated successfully.');
     } catch (error) { 
         console.error('Error updating metafields:', error);
         res.status(500).send('An error occurred while updating product metafields.');
@@ -109,6 +109,5 @@ exports.productData = async (req, res) => {
 };
 
 exports.testData = async (req, res) => {
-    res.status(200).send('Your Api works properly!!!');
-}
-
+    res.status(200).send('Your API works properly!!!');
+};
