@@ -103,7 +103,8 @@ exports.productData = async (req, res) => {
 
         res.send('All product metafields updated successfully.');
     } catch (error) {
-        if(error.includes('429') != -1){
+        console.log(error)
+        if(error?.includes('429') != -1){
             console.error('call new function', error);
         }else{
             console.error('New Error updating metafields:', error);
