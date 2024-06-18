@@ -8,7 +8,7 @@ const headers = {
 };
 
 exports.productData = async (req, res) => {
-    try {
+
         console.log(`${BASE_URL}/products.json`, headers);
         
         // Step 1: Fetch all products
@@ -102,10 +102,7 @@ exports.productData = async (req, res) => {
         }
 
         res.send('All product metafields updated successfully.');
-    } catch (error) {
-        console.error('Error updating metafields:', error.response ? error.response.data : error.message);
-        res.status(500).send('An error occurred while updating product metafields.');
-    }
+   
 };
 
 exports.testData = async (req, res) => {
