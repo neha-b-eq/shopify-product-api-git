@@ -3,7 +3,7 @@ const cron = require('node-cron');
 
 const BASE_URL = 'https://cd5ec6.myshopify.com/admin/api/2024-04';// 'https://store.myshopify.com/admin/api/2024-04'
 const headers = {
-    'X-Shopify-Access-Token': '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',// shpat_75643758239894902hsdfsdu7fy89w7re9
+    'X-Shopify-Access-Token': process.env.ACCESS_TOKEN,//'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',// shpat_75643758239894902hsdfsdu7fy89w7re9
     'Content-Type': 'application/json'
 };
 
