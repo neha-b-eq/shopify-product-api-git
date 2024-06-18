@@ -7,10 +7,13 @@ const headers = {
     'Content-Type': 'application/json'
 };
 
+// Function to introduce delay
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 exports.productData = async (req, res) => {
     try {
         console.log(`${BASE_URL}/products.json`, headers);
-        
+
         // Step 1: Fetch all products
         const productsResponse = await axios.get(`${BASE_URL}/products.json`, { headers });
         const products = productsResponse.data.products;
@@ -21,6 +24,9 @@ exports.productData = async (req, res) => {
                 const variant = product.variants[0];
                 const inventoryItemId = variant.inventory_item_id;
                 const price = parseFloat(variant.price);
+
+                // Introduce delay to prevent exceeding rate limit
+                await delay(500); // 500ms delay (2 calls per second)
 
                 // Fetch the inventory item cost
                 const inventoryResponse = await axios.get(`${BASE_URL}/inventory_items/${inventoryItemId}.json`, { headers });
