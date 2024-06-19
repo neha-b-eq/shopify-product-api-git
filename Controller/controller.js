@@ -26,7 +26,7 @@ exports.productData = async (req, res) => {
                 const price = parseFloat(variant.price);
 
                 // Introduce delay to prevent exceeding rate limit
-                await delay(500); // 500ms delay (2 calls per second)
+                await delay(2000); // 500ms delay (2 calls per second)
 
                 // Fetch the inventory item cost
                 const inventoryResponse = await axios.get(`${BASE_URL}/inventory_items/${inventoryItemId}.json`, { headers });
