@@ -10,5 +10,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: Run tests
-    run: yarn test
+    steps:
+    - name: Run tests
+      run: yarn test
